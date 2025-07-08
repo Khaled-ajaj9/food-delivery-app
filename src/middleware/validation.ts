@@ -30,15 +30,18 @@ export const validateMyUserRequest = [
 ];
 
 export const validateMyResraurantRequest = [
-  body("restaurantName").notEmpty().withMessage("Restaurant name is required"),
-  body("city").notEmpty().withMessage("City name is required"),
-  body("country").notEmpty().withMessage("Country name is required"),
+  body("restaurantName")
+    .isString()
+    .notEmpty()
+    .withMessage("Restaurant name is required"),
+  body("city").isString().notEmpty().withMessage("City name is required"),
+  body("country").isString().notEmpty().withMessage("Country name is required"),
   body("deliveryPrice")
     .isFloat({ min: 0 })
     .withMessage("Delivery price must be a positive number"),
-  body("estimateDeliveryTime")
+  body("estimatedDeliveryTime")
     .isInt({ min: 0 })
-    .withMessage("Estimate delivery time must be a integar"),
+    .withMessage("Estimate delivery time must be a integer"),
   body("cuisines")
     .isArray()
     .withMessage("Cuisines must be an array")
@@ -46,7 +49,10 @@ export const validateMyResraurantRequest = [
     .isEmpty()
     .withMessage("Cuisines array cannot be empty"),
   body("menuItems").isArray().withMessage("Menu items must be ann array"),
-  body("menuItems.*.name").notEmpty().withMessage("Menu item name is required"),
+  body("menuItems.*.name")
+    .isString()
+    .notEmpty()
+    .withMessage("Menu item name is required"),
   body("menuItems.*.price")
     .isFloat({ min: 0 })
     .withMessage("Menu item price is required and must be a postive number "),
