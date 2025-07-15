@@ -29,7 +29,7 @@ const stripeWebhookHandler = async (req: Request, res: Response) => {
     console.log(sig);
     event = STRIPE.webhooks.constructEvent(
       req.body,
-      sig as string,
+      sig as string | string[] | Buffer<ArrayBufferLike>,
       STRIPE_ENDPOINT_SECRET
     );
   } catch (error: any) {
